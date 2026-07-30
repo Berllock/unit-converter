@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Conversor de Comprimento</title>
+</head>
+<body>
+
+    <h1>Conversor de Comprimento</h1>
+    <form th:action="@{/length}" method="post">
+
+        <label for="value">Valor:</label>
+        <input id="value"
+               type="number"
+               name="value"
+               step="any"
+               required>
+
+        <label for="fromValue">De:</label>
+        <select id="fromValue"
+                name="fromValue">
+            <option
+                    th:each="unit: ${units}"
+                    th:value="${unit}"
+                    th:text="${unit.displayName}">
+            </option>
+        </select>
+
+        <label for="toValue">Para:</label>
+        <select id="toValue"
+                name="toValue">
+            <option
+                    th:each="unit: ${units}"
+                    th:value="${unit}"
+                    th:text="${unit.displayName}">
+            </option>
+        </select>
+
+        <button type="submit">Converter</button>
+    </form>
+
+    <div th:if="${result != null}">
+        <p th:text="${result}"></p>
+    </div>
+
+</body>
+</html>

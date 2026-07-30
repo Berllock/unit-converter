@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <div th:fragment="conversionForm(units, action)">
+
+        <form th:action="${action}" method="post">
+
+            <label for="value">Valor:</label>
+            <input id="value"
+                   type="number"
+                   name="value"
+                   step="any"
+                   required>
+
+            <label for="fromValue">De:</label>
+            <select id="fromValue"
+                    name="fromValue">
+                <option
+                        th:each="unit : ${units}"
+                        th:value="${unit}"
+                        th:text="${unit.displayName}">
+                </option>
+            </select>
+
+            <label for="toValue">Para:</label>
+            <select id="toValue"
+                    name="toValue">
+                <option
+                    th:each="unit : ${units}"
+                    th:value="${unit}"
+                    th:text="${unit.displayName}">
+                </option>
+            </select>
+
+            <button type="submit">Converter</button>
+        </form>
+
+        <div th:if="${result != null}">
+            <p th:text="${result}"></p>
+        </div>
+    </div>
+
+</body>
+</html>

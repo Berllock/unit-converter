@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Conversor de Temperatura</title>
+</head>
+<body>
+
+    <h1>Conversor de Temperatura</h1>
+
+    <div th:replace="~{fragments/conversion-form :: conversionForm(${units}, '/temperature')}"></div>
+
+
+</body>
+</html>

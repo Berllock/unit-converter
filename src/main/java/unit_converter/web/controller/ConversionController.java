@@ -37,6 +37,9 @@ public class ConversionController {
                 fromValue,
                 toValue);
 
+        model.addAttribute("value", value);
+        model.addAttribute("selectedFrom", fromValue);
+        model.addAttribute("selectedTo", toValue);
         model.addAttribute("units", LengthUnit.values());
         model.addAttribute("result", result);
 

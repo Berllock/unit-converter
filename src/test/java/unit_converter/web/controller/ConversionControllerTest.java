@@ -49,6 +49,9 @@ public class ConversionControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("length"))
                 .andExpect(model().attribute("result", 1000.0))
-                .andExpect(model().attributeExists("units"));
+                .andExpect(model().attributeExists("units"))
+                .andExpect(model().attribute("value", 1.0))
+                .andExpect(model().attribute("selectedFrom", LengthUnit.KILOMETER))
+                .andExpect(model().attribute("selectedTo", LengthUnit.METER));
     }
 }

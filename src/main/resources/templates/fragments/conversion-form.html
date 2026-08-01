@@ -11,6 +11,7 @@
                    type="number"
                    name="value"
                    step="any"
+                   th:value="${value}"
                    required>
 
             <label for="fromValue">De:</label>
@@ -19,7 +20,8 @@
                 <option
                         th:each="unit : ${units}"
                         th:value="${unit}"
-                        th:text="${unit.displayName}">
+                        th:text="${unit.displayName}"
+                        th:selected="${unit == selectedFrom}">
                 </option>
             </select>
 
@@ -29,7 +31,8 @@
                 <option
                     th:each="unit : ${units}"
                     th:value="${unit}"
-                    th:text="${unit.displayName}">
+                    th:text="${unit.displayName}"
+                    th:selected="${unit == selectedTo}">
                 </option>
             </select>
 

@@ -54,4 +54,16 @@ public class ConversionControllerTest {
                 .andExpect(model().attribute("selectedFrom", LengthUnit.KILOMETER))
                 .andExpect(model().attribute("selectedTo", LengthUnit.METER));
     }
+
+    @Test
+    void shouldReturnLengthPageWithErrorWhenValueIsMissing() throws Exception {
+        mockMvc.perform(post("length")
+                .param("fromValue", "KILOMETER")
+                .param("toValue", "METER"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("length"))
+                .andExpect(model().attributeHasFieldErrors(
+                        "form", "value"
+                ));
+    }
 }

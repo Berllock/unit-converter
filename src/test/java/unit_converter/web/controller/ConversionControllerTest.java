@@ -57,7 +57,7 @@ public class ConversionControllerTest {
 
     @Test
     void shouldReturnLengthPageWithErrorWhenValueIsMissing() throws Exception {
-        mockMvc.perform(post("length")
+        mockMvc.perform(post("/length")
                 .param("fromValue", "KILOMETER")
                 .param("toValue", "METER"))
                 .andExpect(status().isOk())

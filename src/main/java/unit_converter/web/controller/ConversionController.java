@@ -1,10 +1,14 @@
 package unit_converter.web.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import unit_converter.web.dtos.LengthConversionForm;
 import unit_converter.web.model.LengthUnit;
 import unit_converter.web.model.TemperatureUnit;
 import unit_converter.web.model.WeightUnit;
@@ -27,20 +31,22 @@ public class ConversionController {
 
     @PostMapping("/length")
     public String convertLength(
-            @RequestParam Double value,
-            @RequestParam LengthUnit fromValue,
-            @RequestParam LengthUnit toValue,
-            Model model) {
+            @Valid @ModelAttribute("form") LengthConversionForm form,
+            BindingResult bindingResult,
+            Model model){
+
+        model.addAttribute("units", LengthUnit.values());
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("units", LengthUnit.values());
+            return "length";
+        }
 
         double result = conversionService.convertLength(
-                value,
-                fromValue,
-                toValue);
+                form.getValue(),
+                form.getFromValue(),
+                form.getToValue());
 
-        model.addAttribute("value", value);
-        model.addAttribute("selectedFrom", fromValue);
-        model.addAttribute("selectedTo", toValue);
-        model.addAttribute("units", LengthUnit.values());
         model.addAttribute("result", result);
 
         return "length";

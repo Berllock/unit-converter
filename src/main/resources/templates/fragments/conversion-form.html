@@ -4,35 +4,36 @@
 
     <div th:fragment="conversionForm(units, action)">
 
-        <form th:action="${action}" method="post">
+        <form th:action="${action}"
+              th:object="${form}"
+              method="post">
 
             <label for="value">Valor:</label>
             <input id="value"
                    type="number"
-                   name="value"
+                   th:field="*{value}"
                    step="any"
-                   th:value="${value}"
                    required>
+            <p th:if="${#fields.hasErrors('value')}"
+               th:errors="*{value}"></p>
 
             <label for="fromValue">De:</label>
             <select id="fromValue"
-                    name="fromValue">
+                    th:field="*{fromValue}">
                 <option
                         th:each="unit : ${units}"
                         th:value="${unit}"
-                        th:text="${unit.displayName}"
-                        th:selected="${unit == selectedFrom}">
+                        th:text="${unit.displayName}">
                 </option>
             </select>
 
             <label for="toValue">Para:</label>
             <select id="toValue"
-                    name="toValue">
+                    th:field="*{toValue}">
                 <option
                     th:each="unit : ${units}"
                     th:value="${unit}"
-                    th:text="${unit.displayName}"
-                    th:selected="${unit == selectedTo}">
+                    th:text="${unit.displayName}">
                 </option>
             </select>
 

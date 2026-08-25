@@ -26,6 +26,7 @@ public class ConversionController {
     @GetMapping("/length")
     public String showLengthPage(Model model) {
         model.addAttribute("units", LengthUnit.values());
+        model.addAttribute("form", new LengthConversionForm());
         return "length";
     }
 

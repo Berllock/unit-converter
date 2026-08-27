@@ -39,7 +39,6 @@ public class ConversionController {
         model.addAttribute("units", LengthUnit.values());
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("units", LengthUnit.values());
             return "length";
         }
 
@@ -56,22 +55,28 @@ public class ConversionController {
     @GetMapping("/weight")
     public String showWeightPage(Model model) {
         model.addAttribute("units", WeightUnit.values());
+        model.addAttribute("form", new WeightConversionForm());
         return "weight";
     }
 
     @PostMapping("/weight")
     public String convertWeight(
-            @RequestParam Double value,
-            @RequestParam WeightUnit fromValue,
-            @RequestParam WeightUnit toValue,
+            @Valid @ModelAttribute("form") WeightConversionForm form,
+            BindingResult bindingResult,
             Model model) {
+        
+        model.addAttribute("units", WeightUnit.values());
+            
+
+        if (bindingResult.hasErrors()) {
+            return "weight";  
+        }
 
         double result = conversionService.convertWeight(
                 value,
                 fromValue,
                 toValue);
 
-        model.addAttribute("units", WeightUnit.values());
         model.addAttribute("result", result);
 
         return "weight";
@@ -80,22 +85,27 @@ public class ConversionController {
     @GetMapping("/temperature")
     public String showTemperaturePage(Model model) {
         model.addAttribute("units", TemperatureUnit.values());
+        model.addAttribute("form", new TemperatureConversionForm());
         return "temperature";
     }
 
     @PostMapping("/temperature")
     public String convertTemperature(
-            @RequestParam Double value,
-            @RequestParam TemperatureUnit fromValue,
-            @RequestParam TemperatureUnit toValue,
+            @Valid @ModelAttribute("form") TemperatureConversionForm from,
+            BindingResult bindingResult,
             Model model) {
+        
+        model.addAttribute("units", TemperatureUnit.values());
+
+        if (bindingResult.hasErrors()) {
+            return "temperature";
+        }
 
         double result = conversionService.convertTemperature(
                 value,
                 fromValue,
                 toValue);
 
-        model.addAttribute("units", TemperatureUnit.values());
         model.addAttribute("result", result);
 
         return "temperature";

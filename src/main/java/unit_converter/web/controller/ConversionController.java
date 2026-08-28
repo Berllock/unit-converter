@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import unit_converter.web.dtos.LengthConversionForm;
+import unit_converter.web.dtos.TemperatureConversionForm;
+import unit_converter.web.dtos.WeightConversionForm;
 import unit_converter.web.model.LengthUnit;
 import unit_converter.web.model.TemperatureUnit;
 import unit_converter.web.model.WeightUnit;
@@ -73,9 +75,9 @@ public class ConversionController {
         }
 
         double result = conversionService.convertWeight(
-                value,
-                fromValue,
-                toValue);
+                form.getValue(),
+                form.getFromValue(),
+                form.getToValue());
 
         model.addAttribute("result", result);
 
@@ -91,7 +93,7 @@ public class ConversionController {
 
     @PostMapping("/temperature")
     public String convertTemperature(
-            @Valid @ModelAttribute("form") TemperatureConversionForm from,
+            @Valid @ModelAttribute("form") TemperatureConversionForm form,
             BindingResult bindingResult,
             Model model) {
         
@@ -102,9 +104,9 @@ public class ConversionController {
         }
 
         double result = conversionService.convertTemperature(
-                value,
-                fromValue,
-                toValue);
+                form.getValue(),
+                form.getFromValue(),
+                form.getToValue());
 
         model.addAttribute("result", result);
 

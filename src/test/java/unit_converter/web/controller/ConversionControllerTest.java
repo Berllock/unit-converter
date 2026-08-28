@@ -8,6 +8,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import unit_converter.web.model.LengthUnit;
 import unit_converter.web.service.ConversionService;
 
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -50,9 +53,10 @@ public class ConversionControllerTest {
                 .andExpect(view().name("length"))
                 .andExpect(model().attribute("result", 1000.0))
                 .andExpect(model().attributeExists("units"))
-                .andExpect(model().attribute("value", 1.0))
-                .andExpect(model().attribute("selectedFrom", LengthUnit.KILOMETER))
-                .andExpect(model().attribute("selectedTo", LengthUnit.METER));
+                .andExpect(model().attributeExists("form"))
+                .andExpect(model().attribute("form", hasProperty("value", is(1.0))))
+                .andExpect(model().attribute("form", hasProperty("fromValue", is(LengthUnit.KILOMETER))))
+                .andExpect(model().attribute("form", hasProperty("toValue", is(LengthUnit.METER))));
     }
 
     @Test
@@ -65,5 +69,7 @@ public class ConversionControllerTest {
                 .andExpect(model().attributeHasFieldErrors(
                         "form", "value"
                 ));
+
+        verifyNoInteractions(conversionService);
     }
 }

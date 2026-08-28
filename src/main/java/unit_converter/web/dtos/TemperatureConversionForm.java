@@ -22,19 +22,19 @@ public class TemperatureConversionForm {
         this.value = value;
     }
 
-    public LengthUnit getFromValue() {
+    public TemperatureUnit getFromValue() {
         return fromValue;
     }
 
-    public void setFromValue(LengthUnit fromValue) {
+    public void setFromValue(TemperatureUnit fromValue) {
         this.fromValue = fromValue;
     }
 
-    public LengthUnit getToValue() {
+    public TemperatureUnit getToValue() {
         return toValue;
     }
 
-    public void setToValue(LengthUnit toValue) {
+    public void setToValue(TemperatureUnit toValue) {
         this.toValue = toValue;
     }
 }

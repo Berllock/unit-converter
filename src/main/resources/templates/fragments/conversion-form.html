@@ -26,6 +26,8 @@
                         th:text="${unit.displayName}">
                 </option>
             </select>
+            <p th:if="${#fields.hasErrors('fromValue')}"
+               th:errors="*{fromValue}"></p>
 
             <label for="toValue">Para:</label>
             <select id="toValue"
@@ -36,6 +38,8 @@
                     th:text="${unit.displayName}">
                 </option>
             </select>
+            <p th:if="${#fields.hasErrors('toValue')}"
+               th:errors="*{toValue}"></p>
 
             <button type="submit">Converter</button>
         </form>
